@@ -16,7 +16,7 @@ class TShirt(models.Model):
     tag = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to='uploads/images')
     size = models.CharField(max_length=3,choices=SIZES)
-    sex = models.CharField(max_length=1,choices=SEXES)
+    sex = models.CharField(max_length=1,choices=SEX)
 
 
 class Rate(models.Model):
