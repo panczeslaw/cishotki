@@ -118,3 +118,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+MEDIA_ROOT = "/media/"
+
+SIZES = (
+        ('XS', _("Extra small")),
+        ('S', _("Small")),
+        ('M', _("Medium")),
+        ('L', _("Large")),
+        ('XL', _("Extra large")),
+        ('XXL', _("Extra extra large")),
+    )
