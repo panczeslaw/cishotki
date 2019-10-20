@@ -126,6 +126,8 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = "/media/"
 
+MEDIA_URL = "/media/"
+
 SIZES = (
         ('XS', _("Extra small")),
         ('S', _("Small")),
