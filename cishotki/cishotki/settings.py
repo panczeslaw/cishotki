@@ -124,6 +124,16 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
+MEDIA_ROOT = "/media/"
+
+SIZES = (
+        ('XS', _("Extra small")),
+        ('S', _("Small")),
+        ('M', _("Medium")),
+        ('L', _("Large")),
+        ('XL', _("Extra large")),
+        ('XXL', _("Extra extra large")),
+    )
 AUTH_USER_MODEL = 'users.User'
 
 
