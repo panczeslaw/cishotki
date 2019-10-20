@@ -1,11 +1,23 @@
 from django.contrib import admin
 from .models import Topic, Tag, TShirt, Rate
 
+
+
+class RateInline(admin.TabularInline):
+	model = Rate
+	autocomplete_fields = ("user", )
+	extra = 0
+
+
 @admin.register(TShirt)
 class TShirtAdmin(admin.ModelAdmin):
 	list_display = ("id", "user", "topic_list", "tags_list", "size", 'sex')
+	list_filter = ("sex", "size")
 	filter_horizontal = ("topics", "tags")
 	autocomplete_fields = ("user",)
+	inlines = [
+		RateInline,
+	]
 
 	def topic_list(self, obj):
 		return ", ".join([str(i) for i in obj.topics.all()])
