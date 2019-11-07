@@ -26,7 +26,7 @@ SECRET_KEY = '8c5=j=g!z*_9fz&tkk_9^$8!#gs$%cog__ex0ilkzk72l_$!f0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -46,11 +46,14 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cishotki.middleware.SessionBasedLocaleMiddleware',
+
 ]
 
 ROOT_URLCONF = 'cishotki.urls'
@@ -65,14 +68,22 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.i18n',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'templatetags.commontags'
+            ]
         },
     },
 ]
 
 WSGI_APPLICATION = 'cishotki.wsgi.application'
 
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.AllowAllUsersModelBackend'
+]
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -123,6 +134,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = "/static/"
+
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+
+
 
 MEDIA_ROOT = "/media/"
 
@@ -143,3 +168,53 @@ SEX = (
     ('m', _('Male')),
     ('f', _('Female')),
 )
+
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+SESSION_COOKIE_HTTPONLY = True
+
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+LANGUAGES = [
+    ('ru', 'Русский'),
+    ('en', 'English'),
+]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.tour-belarus.by'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'noreply@tour-belarus.by'
+EMAIL_HOST_PASSWORD = '78hHp9t4'
+
+
+WSB_VERSION = 2
+WSB_SECRET_KEY = "Q7XUhdRUaVe6WwG9PsW9tBW49NqrvD2p"
+WSB_STORE_ID = 548569367
+WSB_STORE_NAME = "tour-belarus.by"
+WSB_CURRENCY = "BYN"
+
+WSB_USERNAME = "tour-belarus"
+WSB_PASSWORD_MD5 = "03b440e02d1cfe7edd444c317c201f71"
+
+WEBPAY_HOST = "https://securesandbox.webpay.by"
+WEBPAY_GET_TRANSACTION_URL = "https://sandbox.webpay.by"
+WSB_TEST = 1
+
+
+THEME = {
+    "navbar": "navbar-dark",
+    "color": "343a40",
+    "text": "light",
+    "bg": "bg-theme-dark",
+    "body": "bg-body-dark",
+}
+
+
+LOGIN_URL = "/accounts/login/"
+LOGOUT_REDIRECT_URL = "/"

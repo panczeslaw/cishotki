@@ -9,14 +9,12 @@ class Topic(models.Model):
 class Tag(models.Model):
     tag = models.CharField(max_length=70)
 
-class TShirt(models.Model):
-    
+class TShirt(models.Model):   
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     topic = models.ManyToManyField(Topic)
     tag = models.ManyToManyField(Tag, blank=True)
     image = models.ImageField(upload_to='uploads/images')
-    size = models.CharField(max_length=3,choices=SIZES)
-    sex = models.CharField(max_length=1,choices=SEX)
+    sex = models.CharField(max_length=1, choices=SEX)
 
 
 class Rate(models.Model):
