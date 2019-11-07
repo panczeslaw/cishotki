@@ -15,6 +15,9 @@ class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	comment = models.TextField(max_length=200)
 
+	def __str__(self):
+		return self.comment
+
 
 class Like(models.Model):
 	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
