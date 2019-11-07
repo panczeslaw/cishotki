@@ -9,11 +9,6 @@ class CustomUserAdmin(UserAdmin):
 		(_("Confirmation info"), {"fields": ("is_confirmed", "confirmation_hash",)},),
 	)
 
-@admin.register(User)
-class UserAdmin(admin.ModelAdmin):
-	list_display = ('username', 'first_name', 'last_name', 'email', 'is_staff', 'is_active')
-	search_fields = ('username', 'first_name', 'last_name', 'email')
-
 @admin.register(Comment)	
 class CommentAdmin(admin.ModelAdmin):
 	list_display = ("id", "user", "comment")
