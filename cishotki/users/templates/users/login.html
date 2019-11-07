@@ -1,0 +1,128 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container vh-100">
+  <div class="row h-100">
+    <div class="col-md-6 my-auto mx-auto">
+      <div class="card">
+        <div class="card-body {{ theme.bg }}">
+          <div class="accordion" id="accordionLogin">
+
+            <div class="collapse {% if request.resolver_match.view_name == 'login' %}show{% endif %}" id="login-form" data-parent="#accordionLogin">
+              <p class="lead text-{{ theme.text }} text-center">{% trans "Log in to continue" %}</p>
+              {% if request.resolver_match.view_name == 'login' %}
+                {% if form.errors and not form.non_field_errors %}
+                  <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                    {% if form.errors.items|length == 1 %}{% trans "Please correct the error below." %}{% else %}{% trans "Please correct the errors below." %}{% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                {% endif %}
+              {% endif %}
+
+              {% if form.non_field_errors %}
+                <div class="alert alert-dark" role="alert">
+                  {% for error in form.non_field_errors %}
+                    <p class="small mb-0">
+                      {{ error }}
+                    </p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              <form action="{% url 'login' %}" method="post" class="w-100">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input id="username-header" type="text" name="username" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Username' %}" autofocus="true" required>
+                </div>
+                <div class="form-group">
+                  <input id="password-header" type="password" name="password" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Password' %}" autocomplete="current-password" required>   
+                </div>
+                <input type="hidden" name="next" value="{{ request.get.next }}">
+                <button type="submit" class="btn btn-block btn-secondary text-uppercase mb-3">{% trans "Log in" %}</button>
+              </form>
+              <ul class="navbar-nav flex-sm-row text-center text-uppercase">
+                <li class="nav-item mr-sm-auto">
+                  <a class="nav-link text-{{ theme.text }} pl-0 py-0" data-toggle="collapse" data-target="#register-form">{% trans "New member? Sign up" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-{{ theme.text }} pr-0 py-0" href="#forgot">{% trans "Forgot password?" %}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="collapse {% if request.resolver_match.view_name == 'register' %}show{% endif %}" id="register-form" data-parent="#accordionLogin">
+              <p class="lead text-{{ theme.text }} text-center">{% trans "Register account" %}</p>
+              {% if request.resolver_match.view_name == 'register' %}
+                {% if form.errors or form.non_field_errors %}
+                <div class="alert alert-dark" role="alert">
+                  {% if form.errors and not form.non_field_errors %}
+                    {% for error in form.errors %}
+                      <p class="small mb-0">
+                        {% get_form_errors form.errors error %}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                  {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                      <p class="small mb-0">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                {% endif %}
+              {% endif %}
+              <form action="{% url 'register' %}" method="post" class="w-100">
+                {% csrf_token %}
+                <div class="form-group form-row">
+                  <div class="col">
+                    <input type="text" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'First name' %}" name="first_name" value="{{ form.first_name.value }}">
+                  </div>
+                  <div class="col">
+                    <input type="text" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Last name' %}" name="last_name" value="{{ form.last_name.value }}">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input id="username-header" type="text" name="username" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Username' %}" autofocus="true" value="{{ form.username.value }}">
+                </div>
+                 <div class="form-group">
+                  <input id="email-header" type="email" name="email" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'E-mail' %}" autofocus="true" value="{{ form.email.value }}">
+                </div>
+                <div class="form-group">
+                  <input id="password-header" type="password" name="password" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Password' %}" autocomplete="current-password" value="{{ form.password.value }}">   
+                </div>
+                <input type="hidden" name="next" value="{{ request.get.next }}">
+                <button type="submit" class="btn btn-block btn-secondary text-uppercase mb-3">{% trans "Sign up" %}</button>
+              </form>
+              <ul class="navbar-nav flex-sm-row text-center text-uppercase">
+                <li class="nav-item mr-sm-auto">
+                  <a class="nav-link text-{{ theme.text }} pl-0 py-0" data-toggle="collapse" data-target="#login-form">{% trans "Have account? Log in" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link text-{{ theme.text }} pr-0 py-0" href="#forgot">{% trans "Forgot password?" %}</a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $('#login-form').on('show.bs.collapse', function(){
+    window.history.replaceState({page: "login"}, "{% trans 'Log in' %}", "/accounts/login/");
+  });
+</script>
+<script type="text/javascript">
+  $('#register-form').on('show.bs.collapse', function(){
+    window.history.replaceState({page: "register"}, "{% trans 'Sign up' %}", "/accounts/register/");
+  });
+</script>
+{% endblock %}

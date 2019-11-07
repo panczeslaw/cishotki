@@ -1,0 +1,289 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}" dir="ltr">
+  <head>
+
+    <!-- TITLE AND FAVICON -->
+
+    <title>{{ title }}</title>
+    <meta name="theme-color" content="#{{ theme.color }}">
+    
+    <!-- OPEN GRAPH -->    
+
+    <!--<meta name="keywords" content="беларусь вандроўкі падарожжы путешествия туры квэсты квесты еўропа европа belarus tours travel quests europe">
+    <meta name="description" content="{{ og_desc|striptags }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="tour-belarus.by" />
+    <meta property="og:title" content="{% if not og_title %}{{ title }}{% else %}{{ og_title }}{% endif %}"/>
+    <meta property="og:description" content="{{ og_desc|striptags }}" />
+    <meta property="og:image" content="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.get_host }}{% if not ogimage %}{% static 'ogimage.png' %}{% else %}/media/tours/{{ ogimage }}{% endif %}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="{% if request.is_secure %}https{% else %}http{% endif %}://{{ request.get_host }}{% if not ogimage %}{% static 'ogimage.png' %}{% else %}/media/tours/{{ ogimage }}{% endif %}" />
+    <meta name="twitter:title" content="{% if not og_title %}{{ title }}{% else %}{{ og_title }}{% endif %}">
+    <meta name="twitter:description" content="{{ og_desc|striptags }}">-->
+
+
+    <!-- OTHER -->
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146914537-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-146914537-1');
+    </script>-->
+
+    {% block styles %}
+    {% endblock %}
+  </head>
+  <body>
+    <header class="navbar navbar-expand-lg align-items-center {{ theme.navbar }} {{ theme.bg }} fixed-top flex-column accordion" id="accordionHeader">
+
+      <div class="container flex-row">
+        <a class="navbar-brand text-uppercase" href="{% url 'main' %}">cishotki.by</a>
+        <ul class="navbar-nav ml-auto flex-row order-lg-last">
+          <li class="nav-item">
+            <a class="nav-link px-2" data-toggle="collapse" data-target="#navbarSearch"><i class="fas fa-search"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-2" data-toggle="collapse" data-target="#navbarLanguage"><i class="fas fa-globe"></i></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link px-2" data-toggle="collapse" data-target="#navbarUser">{% if request.user.is_authenticated %}<i class="fas fa-user"></i>{% else %}<i class="fas fa-sign-in-alt"></i>{% endif %}</a>
+          </li>
+        </ul>
+        <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarMenu" data-parent="#accordionHeader">
+          <ul class="navbar-nav mr-auto text-uppercase">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="#forgot">{% trans "Create own design" %}</a>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+              <a class="nav-link {% if tour_section and request.resolver_match.kwargs.tour_type == 'quests' %}active{% endif %}" href="{% url 'tshirts' %}">{% trans "T-Shirts" %}</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link {% if about_section %}active{% endif %}" href="{% url 'about' %}">{% trans "About" %}</a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+
+      <div class="container"> 
+        <div class="flex-column flex-fill collapse" id="navbarSearch" data-parent="#accordionHeader">
+           <div class="row">
+            <div class="col-md-7 mx-auto">
+              <p class="text-{{ theme.text }} text-md-center lead my-2">{% trans "Search on website" %}</p>
+              <form action="{% url 'tshirts' %}" method="get" class="w-100">
+                <div class="form-row mb-2">
+                  <div class="col">
+                    <div class="input-group">
+                      <input id="search-query-header" type="text" name="q" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Search...' %}">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-{{ theme.text }}"><i class="fas fa-search"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="flex-column collapse w-100" id="navbarLanguage" data-parent="#accordionHeader">
+          <div class="row">
+            <div class="col-md">
+              <p class="text-{{ theme.text }} lead my-2 text-md-center">{% trans "Change language" %}</p>
+              <ul class="navbar-nav flex-md-row justify-content-center text-uppercase">
+                {% for i in LANGUAGES %}
+                <li class="nav-item">
+                  <a class="nav-link {% if i.0 == LANGUAGE_CODE %}active{% endif %} px-md-2" href="{% langurl request.get_full_path i.0 %}">{{ i.1 }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="flex-column collapse w-100" id="navbarUser" data-parent="#accordionHeader">
+          <div class="row">
+            <div class="col-md-7 mx-auto">
+              {% if user.is_authenticated %}
+              <p class="text-{{ theme.text }} text-sm-center lead my-2">{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</p>
+              <ul class="navbar-nav flex-sm-row justify-content-center text-uppercase">
+                <li class="nav-item">
+                  <a class="nav-link px-sm-2" href="#new">{% trans "Account" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-sm-2" href="#forgot">{% trans "Settings" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-md-2" href="{% url 'logout' %}">{% trans "Log out" %}</a>
+                </li>
+              </ul>
+              {% else %}
+              <p class="text-{{ theme.text }} text-center lead mt-2 mb-3">{% trans "Log in" %}</p>
+              <form action="{% url 'login' %}" method="post" class="w-100">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input id="username-header" type="text" name="username" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Username' %}" autofocus="true" required>
+                </div>
+                <div class="form-group">
+                  <input id="password-header" type="password" name="password" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Password' %}" autocomplete="current-password" required>   
+                </div>
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="btn btn-block btn-secondary text-uppercase mb-2">{% trans "Log in" %}</button>
+              </form>
+              <ul class="navbar-nav flex-sm-row text-center text-uppercase">
+                <li class="nav-item mr-sm-auto">
+                  <a class="nav-link pl-0" href="{% url 'register' %}">{% trans "New member? Sign up" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link pr-0" href="#forgot">{% trans "Forgot password?" %}</a>
+                </li>
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+    </header>
+
+    
+    
+
+    <main class="vh-100 {{ theme.body }}">
+      {% block content %}
+      {% endblock %}
+    </main>
+
+
+
+    <footer class="navbar mt-auto {{ theme.navbar }} {{ theme.bg }}">
+      <div class="container justify-content-md-around align-items-sm-center align-items-start flex-md-row flex-column">
+        <ul class="navbar-nav order-md-2">
+          <li class="nav-item flex-row">
+            <a href="tel:+375296020352" class="nav-link d-inline-block" target="_blank"><i class="fas fa-phone-alt mr-2"></i>+375 (29) 602-03-52 (A1)</a>
+          </li>
+          <li class="nav-item flex-row">
+            <a href="tel:+375259328414" class="nav-link d-inline-block" target="_blank"><i class="fas fa-phone-alt mr-2"></i>+375 (25) 932-84-14 (life)</a>
+          </li>
+          <li class="nav-item">
+            <a href="mailto:office@cishotki.by" class="nav-link" target="_blank"><i class="fas fa-at mr-2"></i>office@cishotki.by</a>
+          </li>
+        </ul>
+        <!--<ul class="navbar-nav flex-row justify-content-md-center justify-content-left d-sm-none">
+          <li class="nav-item">
+          </li>
+        </ul>-->
+        <ul class="navbar-nav order-md-1 text-sm-center text-md-left">
+          <li class="nav-item">
+            <a href="https://yandex.by/maps/-/CGHaBBZ4" class="nav-link" target="_blank"><i class="fas fa-map-marked-alt mr-2"></i>{% trans "1-1, vul. Kuĺman, Minsk, BY" %}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank"><i class="fas fa-clock mr-2"></i>{% trans "MO-FR: 9:00—18:00" %}</a>
+          </li>
+          <li class="nav-item">
+            <a href="https://panczeslaw.github.io" class="nav-link" target="_blank"><i class="fas fa-file-code mr-2"></i>{% trans "Developed by PAN YOBA" %}</a>
+          </li>
+        </ul>
+      </div>
+      <!--<div class="container justify-content-center text-center d-none d-sm-block">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+           
+          </li>
+        </ul>
+      </div>-->
+      <div class="container justify-content-around text-md-center">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <small class="nav-link">{% trans 'Liberahu Porvalo Ltd., All rights registered' %}</small>
+          </li>
+        </ul>
+      </div>
+      <div class="container justify-content-center text-center d-inline-block">
+        <img class="img-fluid mb-3 b-lazy" data-src="{% if theme.text == 'light' %}{% static 'img/pslogos-dark.png' %}{% else %}{% static 'img/pslogos.png' %}{% endif %}" alt="Логотипы платёжных систем">
+      </div>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/blazy@1.8.2/blazy.min.js" integrity="sha256-D0J9D4igaYyVX/Y78Tr0yoDJsy8hi14hCEdFDakBp08=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+      var bLazy = new Blazy();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/301e860ea6.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript">
+      $('#navbar-searchbox-close, #navbar-searchbox-open').click(function(e) {
+        if ($('#navbar-searchbox').hasClass('d-none')) {
+          $('#navbar-searchbox').removeClass('d-none');
+        } else {
+          $('#navbar-searchbox').addClass('d-none')
+        }
+        var w = $(window).width();
+        if (w < 992)
+          $('#navbarToggle').collapse('toggle');
+      });
+    </script>
+    <script type="text/javascript">
+      $('#navbar-login-close, #navbar-login-open').click(function(e) {
+        if ($('#navbar-login').hasClass('d-none')) {
+          $('#navbar-login').removeClass('d-none');
+        } else {
+          $('#navbar-login').addClass('d-none')
+        }
+        var w = $(window).width();
+        if (w < 992)
+          $('#navbarToggle').collapse('toggle');
+      });
+    </script>-->
+    <!--<script type="text/javascript">
+      function getRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+
+
+
+      function setRandomColor() {
+        $(".navbar, main").css("background-color", getRandomColor());
+      }
+
+      $(document).ready(function(){
+        setInterval(setRandomColor, 10);
+      })
+    </script>-->
+    {% block scripts %}
+    {% endblock %}
+  </body>
+</html>
