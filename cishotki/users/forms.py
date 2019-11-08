@@ -51,4 +51,9 @@ class RegisterForm(forms.Form):
     last_name = forms.CharField(max_length=32, required=True)
     email = forms.EmailField(required=True, validators=[validate_email, validate_unique_email,])
     password = forms.CharField(max_length=32, required=True, widget=widgets.PasswordInput(), validators=[validate_password,])
-    
+
+class ProfileForm(forms.Form):
+    username = forms.CharField(max_length=32, required=True)
+    first_name = forms.CharField(max_length=32, required=True)
+    last_name = forms.CharField(max_length=32, required=True)
+    password = forms.CharField(max_length=32, required=False, widget=widgets.PasswordInput(), validators=[validate_password,])
