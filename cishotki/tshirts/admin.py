@@ -5,15 +5,14 @@ from .models import Topic, Tag, TShirt, Rate
 
 class RateInline(admin.TabularInline):
 	model = Rate
-	autocomplete_fields = ("user", )
+	autocomplete_fields = ("user",)
 	extra = 0
 
 
 @admin.register(TShirt)
 class TShirtAdmin(admin.ModelAdmin):
-	list_display = ("id", "user", "topic_list", "tags_list", "size", 'sex')
-	list_filter = ("sex", "size")
-	filter_horizontal = ("topics", "tags")
+	list_display = ("id", "user", "topic_list", "tags_list",)
+	filter_horizontal = ("topic", "tag",)
 	autocomplete_fields = ("user",)
 	inlines = [
 		RateInline,

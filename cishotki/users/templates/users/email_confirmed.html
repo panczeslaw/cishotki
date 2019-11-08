@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container vh-100">
+  <div class="row h-100">
+    <div class="col-md-6 my-auto mx-auto">
+      <div class="card">
+        <div class="card-body {{ theme.bg }} text-{{ theme.text }} text-center">
+          <p class="mb-0">{% trans "Your e-mail has been confirmed!" %}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

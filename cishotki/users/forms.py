@@ -29,6 +29,22 @@ class CustomAuthenticationForm(AuthenticationForm):
                 code="banned",
             )
 
+
+class CustomSetPasswordForm(forms.Form):
+    password = forms.CharField(max_length=32, required=True, widget=widgets.PasswordInput(), validators=[validate_password,])
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        password = self.cleaned_data["password"]
+        self.user.set_password(password)
+        if commit:
+            self.user.save()
+        return self.user
+        
+
 class RegisterForm(forms.Form):
     username = forms.CharField(max_length=32, required=True, validators=[validate_username,])
     first_name = forms.CharField(max_length=32, required=True)

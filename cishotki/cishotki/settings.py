@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.i18n',
                 'django.contrib.messages.context_processors.messages',
+                'cishotki.context_processors.theme',
             ],
             'builtins': [
                 'templatetags.commontags'
@@ -184,6 +185,7 @@ LANGUAGES = [
     ('en', 'English'),
 ]
 
+DEFAULT_FROM_EMAIL = 'noreply@tour-belarus.by'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'mail.tour-belarus.by'

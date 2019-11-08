@@ -1,7 +1,7 @@
 from django.db import models
 from users.models import User
 from django.utils.translation import ugettext as _
-from cishotki.settings import SEX, SIZES
+from cishotki.settings import SEX
 
 class Topic(models.Model):
     topic = models.CharField(max_length=50)
