@@ -133,10 +133,13 @@
               <p class="text-{{ theme.text }} text-sm-center lead my-2">{{ user.first_name }} {{ user.last_name }} ({{ user.username }})</p>
               <ul class="navbar-nav flex-sm-row justify-content-center text-uppercase">
                 <li class="nav-item">
-                  <a class="nav-link px-sm-2" href="#new">{% trans "Account" %}</a>
+                  <a class="nav-link px-sm-2" href="#new">{% trans "My designs" %}</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link px-sm-2" href="#forgot">{% trans "Settings" %}</a>
+                  <a class="nav-link px-sm-2" href="#forgot">{% trans "Achievements" %}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link px-sm-2" href="{% url 'profile' %}">{% trans "Settings" %}</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link px-md-2" href="{% url 'logout' %}">{% trans "Log out" %}</a>

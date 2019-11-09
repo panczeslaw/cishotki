@@ -5,7 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView, 
 from cishotki.settings import THEME
 
 from .forms import CustomAuthenticationForm, CustomSetPasswordForm
-from .views import RegisterView, ActivateAccountView
+from .views import RegisterView, ActivateAccountView, ProfileView
 
 urlpatterns = [
 	path("login/", LoginView.as_view(
@@ -29,5 +29,6 @@ urlpatterns = [
 	), name="password_reset_confirm"),
 	path("reset/complete", PasswordResetCompleteView.as_view(
 		template_name="users/password_reset_complete.html",
-	), name="password_reset_complete")
+	), name="password_reset_complete"),
+	path("profile/", ProfileView.as_view(), name="profile")
 ]

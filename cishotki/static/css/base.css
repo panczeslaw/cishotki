@@ -222,17 +222,10 @@ div.tooltip {
 }
 
 
-.bg-theme-light {
-  background-color: #00BFFF;
-}
-
 .bg-theme-dark {
   background-color: var(--dark);
 }
 
-.bg-body-light {
-  background-color: #F0FFFF;
-}
 
 .bg-body-dark {
   background-color: #212529;

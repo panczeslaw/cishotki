@@ -1,0 +1,54 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+
+{% block content %}
+<div class="container vh-100">
+  <div class="row h-100">
+    <div class="col-md-6 my-auto mx-auto">
+      <div class="card">
+        <div class="card-body {{ theme.bg }} text-{{ theme.text }}">
+          <p class="lead text-center">{% trans "Personal data" %}</p>
+
+          {% if form.errors or form.non_field_errors %}
+                <div class="alert alert-dark" role="alert">
+                  {% if form.errors and not form.non_field_errors %}
+                    {% for error in form.errors %}
+                      <p class="small mb-0">
+                        {% get_form_errors form.errors error %}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                  {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                      <p class="small mb-0">
+                        {{ error }}
+                      </p>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                {% endif %}
+
+          <form method="post">
+          	{% csrf_token %}
+              <div class="form-group">
+                 <input id="username-header" type="text" name="username" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Username' %}" autofocus="true"value="{{ user }}" required>
+              </div>
+              <div class="form-group form-row">
+                  <div class="col">
+                    <input type="text" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'First name' %}" name="first_name" value="{{ form.first_name.value }}">
+                  </div>
+                  <div class="col">
+                    <input type="text" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Last name' %}" name="last_name" value="{{ form.last_name.value }}">
+                  </div>
+               </div>
+             <div class="form-group">
+                  <input id="password-header" type="password" name="password" class="text-{{ theme.text }} bg-transparent form-control form-control-{{ theme.text }}" placeholder="{% trans 'Change password' %}" value="">   
+             </div>
+            <button type="submit" class="btn btn-block btn-secondary text-uppercase">{% trans "Confirm" %}</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
