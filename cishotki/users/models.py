@@ -9,10 +9,10 @@ from cishotki.settings import SEX
 
 
 class User(AbstractUser):
-	sex = models.CharField(max_length=1, choices=SEX, verbose_name=_("Пол"))
+	#sex = models.CharField(max_length=1, choices=SEX, verbose_name=_("Пол"))
 	is_banned = models.BooleanField(default=False, verbose_name=_("Забанен"))
 	is_confirmed = models.BooleanField(default=False, verbose_name=_("Confirmed e-mail"))
-	confirmation_hash = models.CharField(max_length=100, verbose_name=_("Confirmation hash"))
+	confirmation_hash = models.CharField(max_length=100, verbose_name=_("Confirmation hash"), blank=True, null=True)
 	#confirmation_expire_datetime = models.DateTimeField(default=in_48_hours)
 
 	def setup_confirmation(self):

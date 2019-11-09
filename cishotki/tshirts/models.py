@@ -18,10 +18,14 @@ class Tag(models.Model):
 
 class TShirt(models.Model):   
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description = models.TextField(max_length=500)
     topic = models.ManyToManyField(Topic)
     tag = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(upload_to='uploads/images')
+    image = models.ImageField(upload_to='uploads/designs')
     sex = models.CharField(max_length=1, choices=SEX)
+    uploaded_image = models.ImageField(upload_to='uploads/images')
+    background = models.CharField(max_length=15)
 
 
 class Rate(models.Model):

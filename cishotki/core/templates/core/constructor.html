@@ -1,0 +1,130 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block styles %}
+{{ form.media }}
+<style type="text/css">
+  .inputDnD .form-control-file {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 6em;
+    outline: none;
+    visibility: hidden;
+    cursor: pointer;
+    background-color: #c61c23;
+    box-shadow: 0 0 5px solid white;
+  }
+  .inputDnD .form-control-file:before {
+    content: attr(data-title);
+    position: absolute;
+    top: 0.5em;
+    left: 0;
+    width: 100%;
+    min-height: 6em;
+    line-height: 2em;
+    padding-top: 1.5em;
+    opacity: 1;
+    visibility: visible;
+    text-align: center;
+    border: 0.25em dashed currentColor;
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    overflow: hidden;
+  }
+  .inputDnD .form-control-file:hover:before {
+    border-style: solid;
+    box-shadow: inset 0px 0px 0px 0.25em white;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container vh-100">
+  <div class="row h-100 padding-header">
+    <div class="col-md-6 my-auto">
+      <div id="img-background" style="background-color: #fff;">
+        <img id="img-shirt-male" class="img-fluid rounded" src="{% static 'img/template-m.png' %}">
+        <img id="img-shirt-female" class="img-fluid rounded d-none" src="{% static 'img/template-f.png' %}">
+        <img id="img-print" class="img-fluid position-absolute" src="" style="width: 25%; top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);">
+        
+      </div>
+    </div>
+    <div class="col-md-6 my-auto text-{{ theme.text }}">
+      <div class="card">
+        <div class="card-body {{ theme.bg }}">
+          <form action="{% url 'constructor' %}" method="post">
+            {% csrf_token %}
+            <p class="lead mb-1">{% trans "Sex" %}</p>
+            <div class="form-group">
+              {% for radio in form.sex %}
+              <div class="custom-control custom-radio custom-control-inline">
+                {{ radio.tag }}
+                <label for="{{ radio.id_for_label }}" class="custom-control-label">{{ radio.choice_label }}</label>
+              </div>
+              {% endfor %}
+            </div>
+            <p class="lead mb-1">{% trans "Background color" %}</p>
+            <div class="form-group">
+              {{ form.background }}
+            </div>
+            <p class="lead mb-1">{% trans "Image file" %}</p>
+            
+            <div class="form-group inputDnD">
+              <label class="sr-only" for="inputFile">File Upload</label>
+              <input type="file" class="form-control-file text-light font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="{% trans 'Drag&Drop file' %}">
+            </div>
+            <button class="btn btn-block btn-secondary" type="button" id="clearfile">{% trans "Reset file" %}</button>
+
+            
+          </form>
+        </div>
+      </div>
+   	</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  $("#id_sex_0").click(function(){
+    if($('#id_sex_0').is(':checked')) {
+      $("#img-shirt-female").addClass('d-none');
+      $("#img-shirt-male").removeClass('d-none');
+    }
+  });
+  $("#id_sex_1").click(function(){
+    if($('#id_sex_1').is(':checked')) {
+      $("#img-shirt-male").addClass('d-none');
+      $("#img-shirt-female").removeClass('d-none');
+    }
+  });
+  $("#id_background").on('change', function() {
+    $('#img-background').css('background-color', '#' + this.value);
+  });
+
+  function readUrl(input) {
+  
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        let imgData = e.target.result;
+        let imgName = input.files[0].name;
+        input.setAttribute("data-title", imgName);
+        $("#img-print").attr('src', imgData);
+      }
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      input.setAttribute("data-title", '{% trans "Drag&Drop file" %}');
+      $('#img-print').attr('src', '');
+    }
+
+  }
+
+  $('#clearfile').click(function() {     
+    $('#inputFile').val('').trigger('change');
+  });
+</script>
+{% endblock %}

@@ -237,3 +237,8 @@ div.tooltip {
 .bg-body-dark {
   background-color: #212529;
 }
+
+
+.padding-header {
+  padding-top: 3.5rem;
+}
