@@ -1,0 +1,166 @@
+{% extends "core/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<div class="container padding-header">
+  <div class="row ">
+    <div class="col-md-4  ">
+      <div >
+
+      	<div id="img-background" style="background-color: #fff;">
+        <img id="img-shirt-male" class="img-fluid rounded" src="{{ tshirt.image.url}}">
+        </div>
+
+    
+        <div class="input-group mt-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}" id="basic-addon1"> {% trans "Author" %} </span>
+		  </div>
+		  <input type="text" class="form-control text-{{ theme.text }} bg-transparent"  aria-label="Name" aria-describedby="basic-addon1" value="{{ tshirt.user }}" disabled>
+		</div>
+
+        <div class="input-group mt-3">
+		  <div class="input-group-prepend">
+		    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}" id="basic-addon1"> {% trans "Name" %} </span>
+		  </div>
+		  <input type="text" class="form-control text-{{ theme.text }} bg-transparent"  aria-label="Name" aria-describedby="basic-addon1" value="{{ tshirt.name }}" disabled>
+		</div>
+
+			<div class="input-group mt-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">{% trans "Description" %} </span>
+			  </div>
+			  <textarea class="form-control text-{{ theme.text }} bg-transparent textarea-fixed" aria-label="Description" disabled>{{ tshirt.description }}</textarea>
+			</div>
+
+			<br>
+			<label for="basic-url" class="text-{{ theme.text }}">{% trans "Topics" %}</label>
+			{%for t in tshirt.topic.all%}
+			<div class="input-group mb-3">
+			  <input type="text" class="form-control text-{{ theme.text }} bg-transparent" id="basic-url" aria-describedby="basic-addon3" value="{{t}}" disabled>
+			</div>
+			{% endfor %}
+
+			<div class="input-group mt-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">{% trans "Tags" %} </span>
+			  </div>
+			  <textarea class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed" aria-label="Tags" disabled>{%for t in tshirt.tag.all%} #{{t}}&emsp; {% endfor %}</textarea>
+			</div>
+      </div>
+    </div>
+
+    <div  class="col-md-8 text-light">
+    	<div id="comments_column">
+    		{% for i in comments %}
+    		<div class="input-group mt-3">
+			  <div class="input-group-prepend">
+			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">{{ i.user }} </span>
+			  </div>
+			  <textarea class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed"  disabled>{{ i.comment }}</textarea>
+			</div>
+			  {% endfor %}
+    	</div>
+			
+			<hr class="text-white">
+    	{% if user.is_authenticated %}
+
+    	<div class="input-group mt-3 mb-3">
+
+			  <textarea id="comment_text" class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed" aria-label="Comments" placeholder="give a shit here"></textarea>
+			</div>
+
+        <button id="comment_btn" class="btn btn-secondary" type="submit">{% trans "COMMENT" %}</button>
+        {% endif %}
+
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js" integrity="sha256-1A78rJEdiWTzco6qdn3igTBv9VupN3Q1ozZNTR4WE/Y=" crossorigin="anonymous"></script>
+<script language="javascript" type="text/javascript">
+
+function refresh(){
+	$.ajax({
+      method: "GET",
+      url: "{% url 'comments' tshirt.id %}?id={{ tshirt.id }}",
+    
+      success: function(data){
+      	console.log(data);
+      	for (i in data){
+      		console.log(data[i].user);
+      		$("#comments_column").append('\
+      			<div class="input-group mt-3">\
+			  <div class="input-group-prepend">\
+			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">' + data[i].user +' </span>\
+			  </div>\
+			  <textarea class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed"  disabled>'+ data[i].comment +'</textarea>\
+			</div>')
+      	};
+                    //$('#comments_column').append('\
+                    	//');
+            
+            return true;
+      },
+      error: function(jqxhr, ts, err){
+        console.log(jqxhr);
+        console.log(ts);
+        console.log(err);
+      }
+    });
+}
+
+$("#comment_btn").click(function(){
+	var user = {{ user.id }};
+	var tshirt = {{ tshirt.id }};
+	var text = $("#comment_text").val();
+
+
+	$.ajax({
+      method: "POST",
+      url: "{% url 'save_comments' tshirt.id %}?id={{ tshirt.id }}",
+      data: {
+      	"user": user,
+      	"tshirt": tshirt,
+      	"comment": text,
+      },
+      headers: {
+        'X-CSRFToken': $.cookie('csrftoken'),
+        'sessionid': $.cookie('sessionid'),
+      },
+
+      
+      success: function(data){
+
+      	
+            
+            return true;
+      },
+      error: function(jqxhr, ts, err){
+        console.log(jqxhr);
+        console.log(ts);
+        console.log(err);
+      }
+    });
+
+	$("#comment_text").val("");
+
+});
+
+setInterval(function(){
+    refresh();
+}, 1000);
+
+
+</script>
+{% endblock %}

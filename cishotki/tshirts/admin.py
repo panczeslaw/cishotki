@@ -19,11 +19,11 @@ class TShirtAdmin(admin.ModelAdmin):
 	]
 
 	def topic_list(self, obj):
-		return ", ".join([str(i) for i in obj.topics.all()])
+		return ", ".join([str(i) for i in obj.topic.all()])
 	topic_list.short_description = "Topics"
 
 	def tags_list(self, obj):
-		return ", ".join([str(i) for i in obj.tags.all()])
+		return ", ".join([str(i) for i in obj.tag.all()])
 	tags_list.short_description = "Tags"
 
 

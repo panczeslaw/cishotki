@@ -61,7 +61,7 @@ ROOT_URLCONF = 'cishotki.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["templates", ""],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -155,13 +155,13 @@ MEDIA_ROOT = "/media/"
 MEDIA_URL = "/media/"
 
 SIZES = (
-        ('XS', _("Extra small")),
-        ('S', _("Small")),
-        ('M', _("Medium")),
-        ('L', _("Large")),
-        ('XL', _("Extra large")),
-        ('XXL', _("Extra extra large")),
-    )
+    ('XS', 'XS'),
+    ('S', 'S'),
+    ('M', 'M'),
+    ('L', 'L'),
+    ('XL', 'XL'),
+    ('XXL', 'XXL'),
+)
 AUTH_USER_MODEL = 'users.User'
 
 

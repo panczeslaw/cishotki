@@ -14,16 +14,15 @@
 		  <div class="card-body bg-body-dark text-{{ theme.text }}">
 		  	
 		    <img class="img-thumbnail rounded float-left w-50 mx-2" src="{{ i.image.url }}" alt="Card image cap">
-		    <h5 class="card-title">
-		    	<a href="{% url 'foreign_tshirts_view' i.user %}"class="nav-link text-{{ theme.text }}">{% trans "Author: " %} {{ i.user }}</a>
-		    </h5>
-
             <h4 >&ensp;{% for t in i.topic.all %}
 		     	{{ t }}; &emsp;
 		     {% endfor %}</h4>
 		     <h5 >&ensp;{% for t in i.tag.all %}
 		     	#{{ t }}&emsp;
 		     {% endfor %}</h5>
+		     <br>
+		     <br>
+		     <a href="{% url 'constructor' %}" role="button" class="btn btn-secondary btn-lg">{% trans "Edit" %}</a>
 		  </div>
 		</div>
 		<br>
