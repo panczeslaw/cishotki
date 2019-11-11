@@ -3,108 +3,325 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-29 19:16+0300\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2019-11-11 19:15+0300\n"
+"PO-Revision-Date: 2019-11-11 19:40+0300\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.2.4\n"
 
-#: .\cishotki\settings.py:149
-msgid "Extra small"
-msgstr ""
-
-#: .\cishotki\settings.py:150
-msgid "Small"
-msgstr ""
-
-#: .\cishotki\settings.py:151
-msgid "Medium"
-msgstr ""
-
-#: .\cishotki\settings.py:152
-msgid "Large"
-msgstr ""
-
-#: .\cishotki\settings.py:153
-msgid "Extra large"
-msgstr ""
-
-#: .\cishotki\settings.py:154
-msgid "Extra extra large"
-msgstr ""
-
-#: .\cishotki\settings.py:160
+#: .\cishotki\settings.py:171
 msgid "Male"
-msgstr ""
+msgstr "Мужской"
 
-#: .\cishotki\settings.py:161
+#: .\cishotki\settings.py:172
 msgid "Female"
-msgstr ""
+msgstr "Женский"
 
-#: .\core\templates\core\base.html:77
-msgid "T-Shirts"
-msgstr ""
+#: .\core\forms.py:20
+msgid "Enter a valid color."
+msgstr "Введите корректный цвет."
 
-#: .\core\templates\core\base.html:80
-msgid "About"
-msgstr ""
+#: .\core\forms.py:25
+msgid "Image size must exceed 1000px in each dimension"
+msgstr "Размер изображения должен быть более 1000px в обоих измерениях"
+
+#: .\core\forms.py:30
+msgid "Pattern"
+msgstr "Паттерн"
+
+#: .\core\forms.py:31
+msgid "Color and picture"
+msgstr "Цвет и рисунок"
+
+#: .\core\templates\core\base.html:74
+msgid "Create own design"
+msgstr "Создать собственный дизайн"
+
+#: .\core\templates\core\base.html:87
+msgid "Search on website"
+msgstr "Поиск по сайту"
 
 #: .\core\templates\core\base.html:92
-msgid "Search on website"
-msgstr ""
-
-#: .\core\templates\core\base.html:97
 msgid "Search..."
-msgstr ""
+msgstr "Искать..."
 
-#: .\core\templates\core\base.html:114 .\core\templates\core\base.html:122
-#: .\core\templates\core\base.html:164 .\core\templates\core\base.html:181
-msgid "Log in"
-msgstr ""
-
-#: .\core\templates\core\base.html:117 .\core\templates\core\base.html:176
-msgid "Username"
-msgstr ""
-
-#: .\core\templates\core\base.html:120 .\core\templates\core\base.html:179
-msgid "Password"
-msgstr ""
-
-#: .\core\templates\core\base.html:126 .\core\templates\core\base.html:185
-msgid "New member? Sign up"
-msgstr ""
-
-#: .\core\templates\core\base.html:129 .\core\templates\core\base.html:188
-msgid "Forgot password?"
-msgstr ""
-
-#: .\core\templates\core\base.html:141
+#: .\core\templates\core\base.html:109
 msgid "Change language"
-msgstr ""
+msgstr "Изменить язык"
+
+#: .\core\templates\core\base.html:130
+msgid "My designs"
+msgstr "Мои дизайны"
+
+#: .\core\templates\core\base.html:133
+msgid "Achievements"
+msgstr "Достижения"
+
+#: .\core\templates\core\base.html:136
+msgid "Settings"
+msgstr "Настройки"
+
+#: .\core\templates\core\base.html:139
+msgid "Log out"
+msgstr "Выйти"
+
+#: .\core\templates\core\base.html:143 .\core\templates\core\base.html:153
+#: .\users\templates\users\login.html:43
+#: .\users\templates\users\login.html:157
+msgid "Log in"
+msgstr "Войти"
+
+#: .\core\templates\core\base.html:147 .\users\templates\users\login.html:37
+#: .\users\templates\users\login.html:88
+#: .\users\templates\users\profile_settings.html:34
+msgid "Username"
+msgstr "Никнейм"
+
+#: .\core\templates\core\base.html:150 .\users\templates\users\login.html:40
+#: .\users\templates\users\login.html:94
+msgid "Password"
+msgstr "Пароль"
+
+#: .\core\templates\core\base.html:157 .\users\templates\users\login.html:47
+#: .\users\templates\users\login.html:142
+msgid "New member? Sign up"
+msgstr "Новый член? Зарегайся"
+
+#: .\core\templates\core\base.html:160 .\users\templates\users\login.html:50
+#: .\users\templates\users\login.html:103
+msgid "Forgot password?"
+msgstr "Забыл пароль?"
+
+#: .\core\templates\core\base.html:201
+msgid "1-1, vul. Kuĺman, Minsk, BY"
+msgstr "1-1, ул. Кульман, Минск, Беларусь"
+
+#: .\core\templates\core\base.html:204
+msgid "MO-FR: 9:00—18:00"
+msgstr "ПН-ПТ: 9:00—18:00"
+
+#: .\core\templates\core\base.html:207
+msgid "Developed by PAN YOBA"
+msgstr "Разработка: PAN YOBA"
 
 #: .\core\templates\core\base.html:221
-msgid "1-1, vul. Kuĺman, Minsk, BY"
-msgstr ""
-
-#: .\core\templates\core\base.html:224
-msgid "MO-FR: 9:00—18:00"
-msgstr ""
-
-#: .\core\templates\core\base.html:227
-msgid "Developed by PAN YOBA"
-msgstr ""
-
-#: .\core\templates\core\base.html:241
 msgid "Liberahu Porvalo Ltd., All rights registered"
+msgstr "ООО \"Либераху Порвало\", все права защищены"
+
+#: .\core\templates\core\constructor.html:85
+#: .\tshirts\templates\tshirts\design_view.html:28
+msgid "Name"
+msgstr "Имя"
+
+#: .\core\templates\core\constructor.html:89
+#: .\tshirts\templates\tshirts\design_view.html:35
+msgid "Description"
+msgstr "Описание"
+
+#: .\core\templates\core\constructor.html:93
+msgid "Sex"
+msgstr "Пол"
+
+#: .\core\templates\core\constructor.html:102
+msgid "Background color"
+msgstr "Цвет майки"
+
+#: .\core\templates\core\constructor.html:106
+msgid "Image file"
+msgstr "Файл изображения"
+
+#: .\core\templates\core\constructor.html:110
+#: .\core\templates\core\constructor.html:180
+msgid "Drag&Drop file"
+msgstr "Перетащите файл"
+
+#: .\core\templates\core\constructor.html:112
+msgid "Reset file"
+msgstr "Заменить файл"
+
+#: .\core\templates\core\constructor.html:116
+msgid "Uploaded picture is a pattern"
+msgstr "Сделать изображение паттерном"
+
+#: .\core\templates\core\constructor.html:119
+#: .\tshirts\templates\tshirts\design_view.html:41
+msgid "Topics"
+msgstr "Темы"
+
+#: .\core\templates\core\constructor.html:123
+#: .\tshirts\templates\tshirts\design_view.html:50
+msgid "Tags"
+msgstr "Тэги"
+
+#: .\core\templates\core\constructor.html:127
+msgid "Save design"
+msgstr "Сохранить дизайн"
+
+#: .\core\templates\core\main.html:18
+#: .\tshirts\templates\tshirts\design_view.html:20
+msgid "Author: "
+msgstr "Автор:"
+
+#: .\tshirts\templates\tshirts\design_view.html:88
+msgid "COMMENT"
+msgstr "КОММЕНТ"
+
+#: .\tshirts\templates\tshirts\foreign_tshirts.html:8
+msgid "Designs of"
+msgstr "Дизайны"
+
+#: .\users\admin.py:9
+msgid "Confirmation info"
+msgstr "Информация о подтверждении"
+
+#: .\users\forms.py:17
+msgid "This account is inactive."
+msgstr "Этот аккаунт не активен."
+
+#: .\users\forms.py:22
+msgid "This account banned due to violations of our non-existing site rules."
+msgstr "Этот аккаунт забанен за нарушение наших несуществующих правил."
+
+#: .\users\forms.py:28
+msgid ""
+"Your account is not confirmed. Please check your e-mail for the letter with "
+"activation link."
 msgstr ""
+"Ваш аккаунт не подтверждён. Пожалуйста, проверьте вашу почту на наличие "
+"письма со ссылкой для активации."
+
+#: .\users\models.py:15
+msgid "Забанен"
+msgstr "Забанен"
+
+#: .\users\models.py:16
+msgid "Confirmed e-mail"
+msgstr "Подтверждённый e-mail"
+
+#: .\users\models.py:17
+msgid "Confirmation hash"
+msgstr "Хэш подтверждения"
+
+#: .\users\templates\users\email_confirmed.html:10
+msgid "Your e-mail has been confirmed!"
+msgstr "Ваш e-mail был подтверждён!"
+
+#: .\users\templates\users\login.html:13
+msgid "Log in to continue"
+msgstr "Войдите, чтобы продолжить"
+
+#: .\users\templates\users\login.html:56
+msgid "Register account"
+msgstr "Зарегистрировать аккаунт"
+
+#: .\users\templates\users\login.html:81
+#: .\users\templates\users\profile_settings.html:38
+msgid "First name"
+msgstr "Имя"
+
+#: .\users\templates\users\login.html:84
+#: .\users\templates\users\profile_settings.html:41
+msgid "Last name"
+msgstr "Фамилия"
+
+#: .\users\templates\users\login.html:91
+#: .\users\templates\users\login.html:133
+msgid "E-mail"
+msgstr "E-mail"
+
+#: .\users\templates\users\login.html:96
+#: .\users\templates\users\login.html:162
+#: .\users\templates\users\login.html:167
+msgid "Sign up"
+msgstr "Зарегистрироваться"
+
+#: .\users\templates\users\login.html:100
+msgid "Have account? Log in"
+msgstr "Уже есть аккаунт? Войдите"
+
+#: .\users\templates\users\login.html:109
+#: .\users\templates\users\login.html:135
+msgid "Reset password"
+msgstr "Сброс пароля"
+
+#: .\users\templates\users\login.html:139
+msgid "Remember password? Log in"
+msgstr "Вспомнили пароль? Войти"
+
+#: .\users\templates\users\password_change.html:10
+msgid "Enter your new password"
+msgstr "Введите новый пароль"
+
+#: .\users\templates\users\password_change.html:14
+msgid "New password"
+msgstr "Новый пароль"
+
+#: .\users\templates\users\password_change.html:16
+msgid "Change my password"
+msgstr "Изменить пароль"
+
+#: .\users\templates\users\password_reset_complete.html:10
+msgid "Your password has been successfully set!"
+msgstr "Новый пароль был успешно установлен!"
+
+#: .\users\templates\users\password_reset_requested.html:10
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+"Мы отправили вам на почту инструкции для смены вашего пароля, если "
+"указанный при регистриции e-mail был корректным. Вы должны вскоре получить "
+"письмо."
+
+#: .\users\templates\users\password_reset_requested.html:11
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr "Если вы не получили письмо"
+
+#: .\users\templates\users\profile_settings.html:10
+msgid "Personal data"
+msgstr "Личная информация"
+
+#: .\users\templates\users\profile_settings.html:45
+msgid "Change password"
+msgstr "Изменить пароль"
+
+#: .\users\templates\users\profile_settings.html:47
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: .\users\templates\users\user_designs.html:25
+msgid "Edit"
+msgstr "Редактировать"
+
+#: .\users\validators.py:14 .\users\views.py:80
+msgid "A user with that username already exists."
+msgstr "Пользователь с таким никнеймом уже существует"
+
+#: .\users\validators.py:22
+msgid "A user with that e-mail already exists."
+msgstr "Пользователь с таким e-mail уже существует"
+
+#: .\users\views.py:38
+msgid "E-mail confirmation on cishotki.by"
+msgstr "Подтверждение по E-mail на cishotki.by"
+
+#: .\users\views.py:39
+#, python-brace-format
+msgid ""
+"Hi, {first_name}! Please confirm you e-mail by following this link: {url}"
+msgstr ""
+"Привет, {first_name}! Пожалуйста, подтверди свой E-mail, перейдя по "
+"следующей ссылке:{url}"
