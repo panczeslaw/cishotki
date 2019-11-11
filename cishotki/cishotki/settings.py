@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'core',
     'tshirts',
     'users',
+    'django_select2',
 ]
 
 MIDDLEWARE = [

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block styles %}
-{{ form.media }}
+{{ form.media.css }}
 <style type="text/css">
   .inputDnD .form-control-file {
     position: relative;
@@ -36,14 +36,21 @@
     border-style: solid;
     box-shadow: inset 0px 0px 0px 0.25em white;
   }
+  .select2-container--default .select2-selection--multiple {
+    background-color: transparent;
+    color: var(--dark);
+  }
+  .select2-search__field {
+    color: var(--light);
+  }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container vh-100">
-  <div class="row h-100 padding-header">
-    <div class="col-md-6 my-auto">
-      <div id="img-background" style="background-color: #fff;">
+<div class="container">
+  <div class="row padding-header">
+    <div class="col-md-6 my-3">
+      <div id="img-background" class="position-relative" style="background-color: #fff; background-repeat:no-repeat; background-position: center center;">
         <img id="img-shirt-male" class="img-fluid rounded" src="{% static 'img/template-m.png' %}">
         <img id="img-shirt-female" class="img-fluid rounded d-none" src="{% static 'img/template-f.png' %}">
         <img id="img-print" class="img-fluid position-absolute" src="" style="width: 25%; top: 50%;
@@ -52,11 +59,37 @@
         
       </div>
     </div>
-    <div class="col-md-6 my-auto text-{{ theme.text }}">
+    <div class="col-md-6 my-3 text-{{ theme.text }}">
       <div class="card">
         <div class="card-body {{ theme.bg }}">
-          <form action="{% url 'constructor' %}" method="post">
+          <form action="{% url 'constructor' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            {% if form.errors or form.non_field_errors %}
+            <div class="alert alert-dark" role="alert">
+              {% if form.errors and not form.non_field_errors %}
+                {% for error in form.errors %}
+                  <p class="small mb-0">
+                    {% get_form_errors form.errors error %}
+                  </p>
+                {% endfor %}
+              {% endif %}
+              {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                  <p class="small mb-0">
+                    {{ error }}
+                  </p>
+                {% endfor %}
+              {% endif %}
+            </div>
+            {% endif %}
+            <p class="lead mb-1">{% trans "Name" %}</p>
+            <div class="form-group">
+              {{ form.name }}
+            </div>
+            <p class="lead mb-1">{% trans "Description" %}</p>
+            <div class="form-group">
+              {{ form.description }}
+            </div>
             <p class="lead mb-1">{% trans "Sex" %}</p>
             <div class="form-group">
               {% for radio in form.sex %}
@@ -74,11 +107,24 @@
             
             <div class="form-group inputDnD">
               <label class="sr-only" for="inputFile">File Upload</label>
-              <input type="file" class="form-control-file text-light font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="{% trans 'Drag&Drop file' %}">
+              <input type="file" class="form-control-file text-light font-weight-bold" id="inputFile" accept="image/*" onchange="readUrl(this)" data-title="{% trans 'Drag&Drop file' %}" name="file">
             </div>
-            <button class="btn btn-block btn-secondary" type="button" id="clearfile">{% trans "Reset file" %}</button>
-
-            
+            <button class="btn btn-block btn-secondary mb-3" type="button" id="clearfile">{% trans "Reset file" %}</button>
+            <div class="form-group">
+              <div class="custom-control custom-checkbox custom-control-inline">
+                {{ form.is_pattern }}
+                <label for="{{ form.is_pattern.id_for_label }}" class="custom-control-label">{% trans "Uploaded picture is a pattern" %}</label>
+              </div>
+            </div>
+            <p class="lead mb-1">{% trans "Topics" %}</p>
+            <div class="form-group">
+              {{ form.topic }}
+            </div>
+            <p class="lead mb-1">{% trans "Tags" %}</p>
+            <div class="form-group">
+              {{ form.tag }}
+            </div>
+            <button class="btn btn-block btn-secondary" type="submit">{% trans "Save design" %}</button>
           </form>
         </div>
       </div>
@@ -88,6 +134,7 @@
 {% endblock %}
 
 {% block scripts %}
+{{ form.media.js }}
 <script type="text/javascript">
   $("#id_sex_0").click(function(){
     if($('#id_sex_0').is(':checked')) {
@@ -99,6 +146,19 @@
     if($('#id_sex_1').is(':checked')) {
       $("#img-shirt-male").addClass('d-none');
       $("#img-shirt-female").removeClass('d-none');
+    }
+  });
+  $("#id_is_pattern").click(function(){
+    if($('#id_is_pattern').is(':checked')) {
+      var img = $("#img-print").attr('src');
+      $("#img-background").css('background-image', 'url(' + img + ")");
+      $("#img-print").attr('src', '');
+    } else {
+      var img = $("#img-background").css('background-image');
+      img = img.slice(5, img.length - 2);
+      console.log(img);
+      $("#img-print").attr('src', img);
+      $("#img-background").css('background-image', '');
     }
   });
   $("#id_background").on('change', function() {
@@ -119,6 +179,7 @@
     } else {
       input.setAttribute("data-title", '{% trans "Drag&Drop file" %}');
       $('#img-print').attr('src', '');
+      $('#img-background').css('background-image', '');
     }
 
   }
@@ -126,5 +187,6 @@
   $('#clearfile').click(function() {     
     $('#inputFile').val('').trigger('change');
   });
+
 </script>
 {% endblock %}
