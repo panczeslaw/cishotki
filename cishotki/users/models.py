@@ -6,6 +6,8 @@ from .helpers import in_48_hours, generate_confirmation_hash
 
 from cishotki.settings import SEX
 
+from django.utils import timezone
+
 
 
 class User(AbstractUser):
@@ -25,8 +27,10 @@ class User(AbstractUser):
 
 
 class Comment(models.Model):
+	tshirt = models.ForeignKey("tshirts.TShirt", on_delete=models.CASCADE)
 	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	comment = models.TextField(max_length=200)
+	created = models.DateTimeField(default=timezone.now)
 
 	def __str__(self):
 		return self.comment

@@ -5,7 +5,9 @@
 {% block content %}
   <p>{{ user }}</p>
 
-  <div class="container text-{{ theme.text }} padding-header ">
+  <p class="text-{{ theme.text }} text-sm-center lead padding-header"> {% trans "Designs of" %} {{ u.first_name }} {{ u.last_name }} ({{ u.username }})</p>
+
+  <div class="container text-{{ theme.text }}  ">
   	{% for i in tshirts %}
 		<div class="card">
 		  <div class="card-header text-{{ theme.text }} {{ theme.bg }}">  
@@ -14,10 +16,6 @@
 		  <div class="card-body bg-body-dark text-{{ theme.text }}">
 		  	
 		    <img class="img-thumbnail rounded float-left w-50 mx-2" src="{{ i.image.url }}" alt="Card image cap">
-		    <h5 class="card-title">
-		    	<a href="{% url 'foreign_tshirts_view' i.user %}"class="nav-link text-{{ theme.text }}">{% trans "Author: " %} {{ i.user }}</a>
-		    </h5>
-
             <h4 >&ensp;{% for t in i.topic.all %}
 		     	{{ t }}; &emsp;
 		     {% endfor %}</h4>

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from cishotki.settings import EMAIL_HOST_USER
 from .forms import RegisterForm,ProfileForm
 from .models import User
+from tshirts.models import TShirt
 from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import login
@@ -103,6 +104,21 @@ class ProfileView(LoginRequiredMixin, View):
 			"form": form,
 		}
 		return render(request, "users/profile_settings.html", context=data)
+
+class DesignsView(LoginRequiredMixin, View):
+
+	def get(self, request):
+		u = request.user
+		tshirts = TShirt.objects.all()
+		ts = tshirts.filter(user=u.id)
+
+		data = {
+			"tshirts": ts
+		}
+		return render(request, "users/user_designs.html", context=data)
+
+	def post(self, request):
+		render(request, "users/user_designs.html")
 
 
 

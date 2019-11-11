@@ -11,6 +11,8 @@ from django_select2.forms import Select2MultipleWidget
 from .widgets import ColorWidget, CustomSelect2TagWidget
 
 from tshirts.models import Topic, Tag
+from .widgets import ColorWidget
+
 
 import re
 

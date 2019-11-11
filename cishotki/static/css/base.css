@@ -235,3 +235,7 @@ div.tooltip {
 .padding-header {
   padding-top: 3.5rem;
 }
+
+.textarea-fixed {
+  resize: none;
+}
