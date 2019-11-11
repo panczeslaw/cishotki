@@ -47,3 +47,24 @@ class ConstructorForm(forms.Form):
 		queryset=Tag.objects.all(),
 		required=True
 	)
+
+
+
+
+from cishotki.settings import WSB_STORE_ID, WSB_STORE_NAME, WSB_CURRENCY, WSB_VERSION, WSB_TEST
+
+class OrderForm(forms.Form):
+	wsb_storeid = forms.IntegerField(initial=WSB_STORE_ID, widget=forms.HiddenInput())
+	wsb_store = forms.CharField(initial=WSB_STORE_NAME, widget=forms.HiddenInput())
+	wsb_order_num = forms.IntegerField(widget=forms.HiddenInput())
+	wsb_currency_id = forms.CharField(initial=WSB_CURRENCY, widget=forms.HiddenInput())
+	wsb_version = forms.IntegerField(initial=WSB_VERSION, widget=forms.HiddenInput())
+	wsb_seed = forms.CharField(widget=forms.HiddenInput())
+	wsb_signature = forms.CharField(widget=forms.HiddenInput())
+	wsb_return_url = forms.URLField(widget=forms.HiddenInput())
+	wsb_cancel_return_url = forms.URLField(widget=forms.HiddenInput())
+	wsb_notify_url = forms.URLField(widget=forms.HiddenInput())
+	wsb_test = forms.IntegerField(initial=WSB_TEST, widget=forms.HiddenInput())
+	wsb_customer_name = forms.CharField(widget=forms.HiddenInput())
+	wsb_total = forms.IntegerField(widget=forms.HiddenInput())
+	wsb_email = forms.EmailField(widget=forms.HiddenInput())

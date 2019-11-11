@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'tshirts',
     'users',
     'django_select2',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -221,3 +222,4 @@ THEME = {
 
 LOGIN_URL = "/accounts/login/"
 LOGOUT_REDIRECT_URL = "/"
+

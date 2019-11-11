@@ -6,6 +6,7 @@ import sys
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cishotki.settings')
+    os.environ.setdefault('CLOUDINARY_URL', 'cloudinary://347216667993182:dd1XCLaC92dt3gpI81XamtrO-oY@dzdrnhqlc')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

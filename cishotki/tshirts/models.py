@@ -3,6 +3,8 @@ from users.models import User
 from django.utils.translation import ugettext as _
 from cishotki.settings import SEX
 
+from cloudinary.models import CloudinaryField
+
 class Topic(models.Model):
     topic = models.CharField(max_length=50)
 
@@ -22,9 +24,9 @@ class TShirt(models.Model):
     description = models.TextField(max_length=500, default="")
     topic = models.ManyToManyField(Topic)
     tag = models.ManyToManyField(Tag, blank=True)
-    image = models.ImageField(upload_to='uploads/designs')
+    image = CloudinaryField(width_field=1000, height_field=1000)
     sex = models.CharField(max_length=1, choices=SEX)
-    uploaded_image = models.ImageField(upload_to='uploads/images')
+    uploaded_image = CloudinaryField(null=True, blank=True)
     background = models.CharField(max_length=15, default="#000000")
     is_pattern = models.BooleanField(default=False)
 
