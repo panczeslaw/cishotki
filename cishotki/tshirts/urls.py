@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TShirtsView, ForeignTShirtsView, AjaxCommentLoadView, ajax_save_comment
+from .views import TShirtsView, ForeignTShirtsView, AjaxCommentLoadView, ajax_save_comment, ajax_save_like 
 from cishotki.settings import THEME
 
 
@@ -8,5 +8,6 @@ urlpatterns = [
 	path("<str:user_name>/", ForeignTShirtsView.as_view(),  name="foreign_tshirts_view"),
 	path("<int:tshirt_id>/comments", AjaxCommentLoadView.as_view(),  name="comments"),
 	path("<int:tshirt_id>/comments/add", ajax_save_comment,  name="save_comments"),
+	path("comments/<int:comment_id>/likes/add", ajax_save_like,  name="save_like"),
 
 ]

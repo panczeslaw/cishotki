@@ -16,7 +16,9 @@
     
         <div class="input-group mt-3">
 		  <div class="input-group-prepend">
-		    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}" id="basic-addon1"> {% trans "Author" %} </span>
+		    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}" id="basic-addon1">
+		     <a href="{% url 'foreign_tshirts_view' tshirt.user %}"class=" text-{{ theme.text }}">{% trans "Author: " %}</a>
+		     </span>
 		  </div>
 		  <input type="text" class="form-control text-{{ theme.text }} bg-transparent"  aria-label="Name" aria-describedby="basic-addon1" value="{{ tshirt.user }}" disabled>
 		</div>
@@ -60,6 +62,17 @@
 			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">{{ i.user }} </span>
 			  </div>
 			  <textarea class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed"  disabled>{{ i.comment }}</textarea>
+
+			  <div class="input-group-prepend">
+			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">
+			    	<p id = "like-counter-{{ i.id }}"class=" text-{{ theme.text }} bg-transparent text-center mt-0 ">{{ i.like_counter }}</p>
+			    	<br>
+
+			    	<button id="like-button" class=" btn btn-danger btn-sm text-uppercase mt-4" onclick="like({{i.id}})">LIKE</button>
+			     </span>
+			  </div>
+
+			  
 			</div>
 			  {% endfor %}
     	</div>
@@ -93,7 +106,7 @@
 function refresh(){
 	$.ajax({
       method: "GET",
-      url: "{% url 'comments' tshirt.id %}?id={{ tshirt.id }}",
+      url: "{% url 'comments' tshirt.id %}",
     
       success: function(data){
       	console.log(data);
@@ -105,7 +118,14 @@ function refresh(){
 			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">' + data[i].user +' </span>\
 			  </div>\
 			  <textarea class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed"  disabled>'+ data[i].comment +'</textarea>\
-			</div>')
+						<div class="input-group-prepend">\
+			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">\
+			    	<p id = "like-counter-{{ i.id }}"class=" text-{{ theme.text }} bg-transparent text-center mt-0 ">0</p>\
+			    	<br>\
+			    	<button id="like-button" class=" btn btn-danger btn-sm text-uppercase mt-4" onclick="like({{i.id}}, {{ i.like_counter}} )">LIKE</button>\
+			     </span>\
+			  </div></div>')
+
       	};
                     //$('#comments_column').append('\
                     	//');
@@ -121,14 +141,14 @@ function refresh(){
 }
 
 $("#comment_btn").click(function(){
-	var user = {{ user.id }};
-	var tshirt = {{ tshirt.id }};
+	var user = "{{ user.id }}";
+	var tshirt = "{{ tshirt.id }}";
 	var text = $("#comment_text").val();
 
 
 	$.ajax({
       method: "POST",
-      url: "{% url 'save_comments' tshirt.id %}?id={{ tshirt.id }}",
+      url: "{% url 'save_comments' tshirt.id %}",
       data: {
       	"user": user,
       	"tshirt": tshirt,
@@ -159,7 +179,36 @@ $("#comment_btn").click(function(){
 
 setInterval(function(){
     refresh();
-}, 1000);
+}, 2000);
+
+
+function like(comment_id){
+	var idstr = "#like-counter-" + comment_id
+	console.log(comment_id)
+
+	$.ajax({
+      method: "POST",
+      url: "/tshirts/comments/" + comment_id + "/likes/add",
+      headers: {
+        'X-CSRFToken': $.cookie('csrftoken'),
+        'sessionid': $.cookie('sessionid'),
+      },
+
+      
+      success: function(data){
+
+      	$(idstr).text(data["status"]);
+      	console.log(data["status"]);
+            
+            return true;
+      },
+      error: function(jqxhr, ts, err){
+        console.log(jqxhr);
+        console.log(ts);
+        console.log(err);
+      }
+    })
+}
 
 
 </script>

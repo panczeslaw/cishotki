@@ -31,6 +31,7 @@ class Comment(models.Model):
 	user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 	comment = models.TextField(max_length=200)
 	created = models.DateTimeField(default=timezone.now)
+	like_counter = models.PositiveIntegerField(default=0)
 
 	def __str__(self):
 		return self.comment
