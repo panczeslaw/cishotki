@@ -120,9 +120,9 @@ function refresh(){
 			  <textarea class="form-control text-{{ theme.text }} bg-transparent text-left textarea-fixed"  disabled>'+ data[i].comment +'</textarea>\
 						<div class="input-group-prepend">\
 			    <span class="input-group-text text-{{ theme.text }} {{ theme.bg }}">\
-			    	<p id = "like-counter-{{ i.id }}"class=" text-{{ theme.text }} bg-transparent text-center mt-0 ">0</p>\
+			    	<p id = "like-counter-' + data[i].comment_id + '"class=" text-{{ theme.text }} bg-transparent text-center mt-0 ">0</p>\
 			    	<br>\
-			    	<button id="like-button" class=" btn btn-danger btn-sm text-uppercase mt-4" onclick="like({{i.id}})">LIKE</button>\
+			    	<button id="like-button" class=" btn btn-danger btn-sm text-uppercase mt-4" onclick="like(' + data[i].comment_id + ')">LIKE</button>\
 			     </span>\
 			  </div></div>')
 

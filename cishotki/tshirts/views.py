@@ -62,7 +62,7 @@ class AjaxCommentLoadView(View):
 			comments_list.update({str(i.id): {
 				"user": i.user.username,
 				"comment": i.comment,
-
+				"comment_id": i.id,
 			}})
 		return JsonResponse(comments_list)
 
@@ -75,8 +75,7 @@ def ajax_save_comment(request, tshirt_id):
 		tshirt=tshirt,
 		comment=request.POST["comment"]
 	)
-	comment.save()
-	return JsonResponse({"status": "ok"})
+	return JsonResponse({"status": comment.id})
 
 
 @login_required
