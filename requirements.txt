@@ -16,7 +16,7 @@ filetype==1.0.5
 gunicorn==19.9.0
 idna==2.8
 imgkit==1.0.2
-lxml==4.3.4
+lxml==4.6.2
 MarkupSafe==1.1.1
 phonenumbers==8.10.4
 Pillow==6.2.0
